@@ -5,4 +5,12 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
 
+    <!-- Button names -->
+    <string name="event">Event</string>
+    <string name="reference">Reference</string>
+    <string name="record">New Entry</string>
+    <string name="data">Data</string>
+    <string name="more">More&#8230;</string>
+    <string name="title_activity_events">Events</string>
+
 </resources>
