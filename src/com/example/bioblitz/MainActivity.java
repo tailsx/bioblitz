@@ -7,23 +7,30 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
+	
+	static final int REQUEST_IMAGE_CAPTURE = 0;
+	ImageView imgFavorite;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        
+        imgFavorite = (ImageView)findViewById(R.id.icon);
         ListView listView = (ListView) findViewById(R.id.listView1);
         final Intent intent = new Intent(this, EventsActivity.class);
         
@@ -96,5 +103,26 @@ public class MainActivity extends Activity {
         }
 
       }
+
+    public void dispatchTakePictureIntent(View view) {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+       // TODO Auto-generated method stub
+       super.onActivityResult(requestCode, resultCode, data);
+       if (requestCode == 0){
+    	   TextView textView = (TextView) findViewById(R.id.secondLine);
+    	   textView.setText("CANCEL");
+       }
+       else{
+	       Bitmap bp = (Bitmap) data.getExtras().get("data");
+	       imgFavorite.setImageBitmap(bp);
+       }
+    }
 
 }
