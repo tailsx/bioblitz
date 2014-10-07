@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	
-	static final int REQUEST_IMAGE_CAPTURE = 0;
+	static final int REQUEST_IMAGE_CAPTURE = 1;
 	ImageView imgFavorite;
 	
     @Override
@@ -106,9 +106,7 @@ public class MainActivity extends Activity {
 
     public void dispatchTakePictureIntent(View view) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        }
+        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
     }
     
     @Override
@@ -117,11 +115,19 @@ public class MainActivity extends Activity {
        super.onActivityResult(requestCode, resultCode, data);
        if (requestCode == 0){
     	   TextView textView = (TextView) findViewById(R.id.secondLine);
-    	   textView.setText("CANCEL");
+    	   textView.setText("cancel	requestCode: " + requestCode + " resultCode: " + resultCode);
        }
        else{
 	       Bitmap bp = (Bitmap) data.getExtras().get("data");
+	       Intent recordNewEntryIntent = new Intent(this, NewEntryActivity.class);
+	       recordNewEntryIntent.putExtra("photo", bp);
+	       startActivity(recordNewEntryIntent);
+	       
+	       /*
 	       imgFavorite.setImageBitmap(bp);
+	       TextView textView = (TextView) findViewById(R.id.secondLine);
+    	   textView.setText("requestCode: " + requestCode + " resultCode: " + resultCode);
+    	   */
        }
     }
 

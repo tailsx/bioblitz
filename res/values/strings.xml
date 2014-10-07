@@ -12,5 +12,11 @@
     <string name="data">Data</string>
     <string name="more">More&#8230;</string>
     <string name="title_activity_events">Events</string>
+    <string name="title_activity_new_entry">NewEntryActivity</string>
 
+    
+    <!-- Record activity strings -->
+    <string name="commonNameLabel">Common Name</string>
+    <string name="scientificNameLabel">Scientific Name</string>
+    <string name="speciesImage">Image of species</string>
 </resources>

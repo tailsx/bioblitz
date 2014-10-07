@@ -1,0 +1,57 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".NewEntryActivity" >
+
+    <ImageView
+        android:id="@+id/speciesImage"
+        android:contentDescription="@string/speciesImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="53dp"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/commonNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/speciesImage"
+        android:layout_marginLeft="25dp"
+        android:text="@string/commonNameLabel" />
+
+    <EditText
+        android:id="@+id/commonNameField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/commonNameLabel"
+        android:layout_marginLeft="25dp"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/scientificNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/commonNameField"
+        android:layout_marginLeft="25dp"
+        android:text="@string/scientificNameLabel" />
+
+    <EditText
+        android:id="@+id/scientificNameField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/scientificNameLabel"
+        android:layout_marginLeft="25dp"
+        android:ems="10" />
+
+</RelativeLayout>
