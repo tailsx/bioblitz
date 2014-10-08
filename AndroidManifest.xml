@@ -37,6 +37,10 @@
             android:name="com.example.bioblitz.NewEntryActivity"
             android:label="@string/title_activity_new_entry" >
         </activity>
+        <activity
+            android:name="com.example.bioblitz.DataActivity"
+            android:label="@string/title_activity_data" >
+        </activity>
     </application>
 
 </manifest>
