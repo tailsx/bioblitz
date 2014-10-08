@@ -14,44 +14,6 @@
         android:layout_marginTop="53dp"
         android:src="@drawable/ic_launcher" />
 
-    <TextView
-        android:id="@+id/commonNameLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/speciesImage"
-        android:layout_marginLeft="25dp"
-        android:text="@string/commonNameLabel" />
-
-    <EditText
-        android:id="@+id/commonNameField"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/commonNameLabel"
-        android:layout_marginLeft="25dp"
-        android:inputType="text"
-        android:ems="10" />
-
-    <TextView
-        android:id="@+id/scientificNameLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/commonNameField"
-        android:layout_marginLeft="25dp"
-        android:text="@string/scientificNameLabel" />
-
-    <EditText
-        android:id="@+id/scientificNameField"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/scientificNameLabel"
-        android:layout_marginLeft="25dp"
-        android:inputType="text"
-        android:ems="10" />
-
     <Button
         android:id="@+id/saveButton"
         style="?android:attr/buttonStyleSmall"
@@ -90,6 +52,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:onClick="toEvents"
                 android:text="@string/event" />
         </RelativeLayout>
 
@@ -130,6 +93,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:onClick="toData"
                 android:text="@string/data" />
         </RelativeLayout>
 
@@ -146,5 +110,42 @@
                 android:text="@string/more" />
         </RelativeLayout>
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/commonNameField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/commonNameLabel"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:inputType="text" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/scientificNameField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/commonNameField"
+        android:layout_below="@+id/scientificNameLabel"
+        android:ems="10"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/scientificNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/scientificNameField"
+        android:layout_below="@+id/commonNameField"
+        android:text="@string/scientificNameLabel" />
+
+    <TextView
+        android:id="@+id/commonNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/commonNameField"
+        android:layout_below="@+id/speciesImage"
+        android:text="@string/commonNameLabel" />
 
 </RelativeLayout>

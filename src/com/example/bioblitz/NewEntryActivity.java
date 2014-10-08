@@ -1,18 +1,19 @@
 package com.example.bioblitz;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class NewEntryActivity extends Activity {
 
+	static final int REQUEST_IMAGE_CAPTURE = 1;
 	ImageView imageView;
 	
 	@Override
@@ -46,5 +47,44 @@ public class NewEntryActivity extends Activity {
 		getMenuInflater().inflate(R.menu.new_entry, menu);
 		return true;
 	}
+
+	public void dispatchTakePictureIntent(View view) {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+    }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+       // TODO Auto-generated method stub
+       super.onActivityResult(requestCode, resultCode, data);
+       if(resultCode != RESULT_CANCELED){
+	       if (requestCode == 0){
+	    	   TextView textView = (TextView) findViewById(R.id.secondLine);
+	    	   textView.setText("cancel	requestCode: " + requestCode + " resultCode: " + resultCode);
+	       }
+	       else{
+		       Bitmap bp = (Bitmap) data.getExtras().get("data");
+		       Intent recordNewEntryIntent = new Intent(this, NewEntryActivity.class);
+		       recordNewEntryIntent.putExtra("photo", bp);
+		       startActivity(recordNewEntryIntent);
+		       
+		       /*
+		       imgFavorite.setImageBitmap(bp);
+		       TextView textView = (TextView) findViewById(R.id.secondLine);
+	    	   textView.setText("requestCode: " + requestCode + " resultCode: " + resultCode);
+	    	   */
+	       }
+       }
+    }
+    
+    public void toData (View view){
+    	Intent intent = new Intent(this, DataActivity.class);
+    	startActivity(intent);
+    }
+    
+    public void toEvents (View view){
+    	Intent intent = new Intent(this, MainActivity.class);
+    	startActivity(intent);
+    }
 
 }

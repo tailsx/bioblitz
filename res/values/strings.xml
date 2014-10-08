@@ -21,5 +21,9 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="title_activity_data">DataActivity</string>
+    <string name="title_activity_species_entry">SpeciesEntryActivity</string>
+    
+    <!-- Species Entry strings -->
+    <string name="edit">Edit</string>
 
 </resources>

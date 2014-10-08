@@ -21,6 +21,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:onClick="toEvents"
                 android:text="@string/event" />
         </RelativeLayout>
 
@@ -61,6 +62,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:onClick="toData"
                 android:text="@string/data" />
         </RelativeLayout>
 
@@ -89,7 +91,7 @@
         android:src="@drawable/ic_launcher" />
 
     <TextView
-        android:id="@+id/commonNameField"
+        android:id="@+id/commonName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/scientificNameLabel"
@@ -98,25 +100,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
-        android:id="@+id/commonNameLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/commonNameField"
-        android:layout_below="@+id/speciesImage"
-        android:text="@string/commonNameLabel" />
-
-    <TextView
-        android:id="@+id/scientificNameLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/speciesImage"
-        android:layout_below="@+id/commonNameField"
-        android:layout_marginRight="24dp"
-        android:layout_marginTop="26dp"
-        android:text="@string/scientificNameLabel" />
-
-    <TextView
-        android:id="@+id/scientificNameField"
+        android:id="@+id/scientificName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/scientificNameLabel"
@@ -124,13 +108,31 @@
         android:text="Testing"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
+    <TextView
+        android:id="@+id/scientificNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/speciesImage"
+        android:layout_below="@+id/commonName"
+        android:layout_marginRight="21dp"
+        android:layout_marginTop="44dp"
+        android:text="@string/scientificNameLabel" />
+
+    <TextView
+        android:id="@+id/commonNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/commonName"
+        android:layout_below="@+id/speciesImage"
+        android:text="@string/commonNameLabel" />
+
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/scientificNameField"
+        android:layout_below="@+id/scientificName"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="36dp"
         android:text="@string/edit" />
 
 </RelativeLayout>

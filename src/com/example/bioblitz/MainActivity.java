@@ -34,6 +34,7 @@ public class MainActivity extends Activity {
         ListView listView = (ListView) findViewById(R.id.listView1);
         final Intent intent = new Intent(this, EventsActivity.class);
         
+        /*
         listView.setOnItemClickListener(new OnItemClickListener() {
       	  @Override
       	  public void onItemClick(AdapterView<?> parent, View view,
@@ -43,32 +44,32 @@ public class MainActivity extends Activity {
       	      .show();
       	  }
       	});
-        
+        */
         String[] values = new String[] { "Humber Watershed", "Don River Watershed", "Rouge Park",
         		"Another place", "Another place2", "These are all strings", "Just want to show",
         		"That it scrolls"};
         
 
-            final ArrayList<String> list = new ArrayList<String>();
-            for (int i = 0; i < values.length; ++i) {
-              list.add(values[i]);
-            }
-            final StableArrayAdapter adapter = new StableArrayAdapter(this,
-                android.R.layout.simple_list_item_1, list);
-            listView.setAdapter(adapter);
+        final ArrayList<String> list = new ArrayList<String>();
+        for (int i = 0; i < values.length; ++i) {
+          list.add(values[i]);
+        }
+        final StableArrayAdapter adapter = new StableArrayAdapter(this,
+            android.R.layout.simple_list_item_1, list);
+        listView.setAdapter(adapter);
 
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-              @Override
-              public void onItemClick(AdapterView<?> parent, final View view,
-                  int position, long id) {
-                final String item = (String) parent.getItemAtPosition(position);
-                intent.putExtra("event", item);
-                adapter.notifyDataSetChanged();
-                startActivity(intent);
-              }
+          @Override
+          public void onItemClick(AdapterView<?> parent, final View view,
+              int position, long id) {
+            final String item = (String) parent.getItemAtPosition(position);
+            intent.putExtra("event", item);
+            adapter.notifyDataSetChanged();
+            startActivity(intent);
+          }
 
-            });
+        });
     }
 
 
@@ -102,7 +103,7 @@ public class MainActivity extends Activity {
           return true;
         }
 
-      }
+    }
 
     public void dispatchTakePictureIntent(View view) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -113,22 +114,34 @@ public class MainActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
        // TODO Auto-generated method stub
        super.onActivityResult(requestCode, resultCode, data);
-       if (requestCode == 0){
-    	   TextView textView = (TextView) findViewById(R.id.secondLine);
-    	   textView.setText("cancel	requestCode: " + requestCode + " resultCode: " + resultCode);
+       if(resultCode != RESULT_CANCELED){
+	       if (requestCode == 0){
+	    	   TextView textView = (TextView) findViewById(R.id.secondLine);
+	    	   textView.setText("cancel	requestCode: " + requestCode + " resultCode: " + resultCode);
+	       }
+	       else{
+		       Bitmap bp = (Bitmap) data.getExtras().get("data");
+		       Intent recordNewEntryIntent = new Intent(this, NewEntryActivity.class);
+		       recordNewEntryIntent.putExtra("photo", bp);
+		       startActivity(recordNewEntryIntent);
+		       
+		       /*
+		       imgFavorite.setImageBitmap(bp);
+		       TextView textView = (TextView) findViewById(R.id.secondLine);
+	    	   textView.setText("requestCode: " + requestCode + " resultCode: " + resultCode);
+	    	   */
+	       }
        }
-       else{
-	       Bitmap bp = (Bitmap) data.getExtras().get("data");
-	       Intent recordNewEntryIntent = new Intent(this, NewEntryActivity.class);
-	       recordNewEntryIntent.putExtra("photo", bp);
-	       startActivity(recordNewEntryIntent);
-	       
-	       /*
-	       imgFavorite.setImageBitmap(bp);
-	       TextView textView = (TextView) findViewById(R.id.secondLine);
-    	   textView.setText("requestCode: " + requestCode + " resultCode: " + resultCode);
-    	   */
-       }
+    }
+    
+    public void toData (View view){
+    	Intent intent = new Intent(this, DataActivity.class);
+    	startActivity(intent);
+    }
+    
+    public void toEvents (View view){
+    	Intent intent = new Intent(this, MainActivity.class);
+    	startActivity(intent);
     }
 
 }
