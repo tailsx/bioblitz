@@ -128,6 +128,7 @@ public class DataActivity extends FragmentActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     	ArrayList<String> f = new ArrayList<String>();// list of file paths
     	File[] listFile;
+    	Log.d(TAG, String.valueOf(requestCode));
     	if (requestCode == REQUEST_IMAGE_CAPTURE) {
             if (resultCode == RESULT_OK) {
                 // Image captured and saved to fileUri specified in the Intent
@@ -149,6 +150,7 @@ public class DataActivity extends FragmentActivity {
                     Bitmap myBitmap = BitmapFactory.decodeFile(listFile[0].getAbsolutePath());
                     
                     ImageView myImage = (ImageView) findViewById(R.id.test);
+                    Log.d(TAG, myImage.toString());
                     myImage.setImageBitmap(myBitmap);
                     
                 }
@@ -179,11 +181,17 @@ public class DataActivity extends FragmentActivity {
     	startActivity(intent);
     }
     
+    public void toMore (View view){
+    	Intent intent = new Intent(this, MoreActivity.class);
+    	startActivity(intent);
+    }
+    
     public void startSomething(View View) {
         DialogFragment newFragment = new newEntryPopUp ();
         newFragment.show(getSupportFragmentManager(), "missiles");
     }
    
+    
     public static class newEntryPopUp extends DialogFragment {
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -201,7 +209,8 @@ public class DataActivity extends FragmentActivity {
 			            	        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
 
 			            	        // start the image capture Intent
-			            	        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+			            	        getActivity().startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+			            		   
 			            	   }
 			            	   else if(which == 1){
 			            		   Log.d(TAG, "From Gallery");

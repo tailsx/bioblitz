@@ -11,9 +11,10 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
-<uses-feature android:name="android.hardware.camera.autofocus" />
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-<uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -50,6 +51,10 @@
             android:name="com.example.bioblitz.SpeciesEntryActivity"
             android:label="@string/title_activity_species_entry"
             android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.example.bioblitz.MoreActivity"
+            android:label="@string/title_activity_more" >
         </activity>
     </application>
 

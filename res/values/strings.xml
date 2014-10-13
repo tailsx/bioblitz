@@ -22,11 +22,12 @@
     <string name="cancel">Cancel</string>
     <string name="title_activity_data">DataActivity</string>
     <string name="title_activity_species_entry">SpeciesEntryActivity</string>
-    
+
     <!-- Species Entry strings -->
     <string name="edit">Edit</string>
-    
+
     <!-- Species Entry strings -->
     <string name="choiceTitle">Add a photo?</string>
+    <string name="title_activity_more">MoreActivity</string>
 
 </resources>
