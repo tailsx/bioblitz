@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/linearLayout1"
+        android:layout_below="@+id/imageView1"
         android:layout_centerHorizontal="true" >
 
     </ListView>
@@ -44,6 +45,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:onClick="startSomething"
                 android:text="@string/reference" />
         </RelativeLayout>
 
@@ -88,5 +90,16 @@
                 android:text="@string/more" />
         </RelativeLayout>
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:maxHeight="@dimen/max_image_height"
+        android:maxWidth="@dimen/max_image_width"
+        android:adjustViewBounds= "true"
+        android:src="@drawable/ic_launcher" />
 
 </RelativeLayout>

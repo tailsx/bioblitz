@@ -11,7 +11,9 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
-
+<uses-feature android:name="android.hardware.camera.autofocus" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -31,19 +33,23 @@
         </activity>
         <activity
             android:name="com.example.bioblitz.EventsActivity"
-            android:label="@string/title_activity_events" >
+            android:label="@string/title_activity_events"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.example.bioblitz.NewEntryActivity"
-            android:label="@string/title_activity_new_entry" >
+            android:label="@string/title_activity_new_entry"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.example.bioblitz.DataActivity"
-            android:label="@string/title_activity_data" >
+            android:label="@string/title_activity_data"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.example.bioblitz.SpeciesEntryActivity"
-            android:label="@string/title_activity_species_entry" >
+            android:label="@string/title_activity_species_entry"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

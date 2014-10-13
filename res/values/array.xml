@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="pictureChoices">
+        <item>To Camera</item>
+        <item>From Gallery</item>
+        <item>No Photo</item>
+    </array>
+</resources>

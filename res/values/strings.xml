@@ -25,5 +25,8 @@
     
     <!-- Species Entry strings -->
     <string name="edit">Edit</string>
+    
+    <!-- Species Entry strings -->
+    <string name="choiceTitle">Add a photo?</string>
 
 </resources>
