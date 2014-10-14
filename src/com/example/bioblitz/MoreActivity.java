@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -87,8 +88,8 @@ public class MoreActivity extends Activity {
 		}
 	}
 	
-	public void toEventOne (View view){
-    	Intent intent = new Intent(this, EventsActivity.class);
+	public void toEvents (View view){
+    	Intent intent = new Intent(this, MainActivity.class);
     	intent.putParcelableArrayListExtra("listRecords", listRecords);
     	startActivity(intent);
     }
@@ -97,4 +98,9 @@ public class MoreActivity extends Activity {
     	Record r = new Record("af","fwef","fweef","efw","sdf");
     	listRecords.add(r);
     }
+	
+	public void playAudio (View view){
+		MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.canary);
+		mp.start();
+	}
 }

@@ -81,25 +81,6 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/speciesImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="59dp"
-        android:contentDescription="@string/speciesImage"
-        android:src="@drawable/ic_launcher" />
-
-    <TextView
-        android:id="@+id/commonName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/scientificNameLabel"
-        android:layout_below="@+id/commonNameLabel"
-        android:text="Testing"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
     <TextView
         android:id="@+id/scientificName"
         android:layout_width="wrap_content"
@@ -109,31 +90,89 @@
         android:text="Testing"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
+    <ImageView
+        android:id="@+id/speciesImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="42dp"
+        android:contentDescription="@string/speciesImage"
+        android:maxHeight="@dimen/max_image_height"
+        android:maxWidth="@dimen/max_image_width"
+        android:src="@drawable/template" />
+
+    <TextView
+        android:id="@+id/commonNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/scientificNameLabel"
+        android:layout_below="@+id/speciesImage"
+        android:text="@string/commonNameLabel" />
+
+    <TextView
+        android:id="@+id/commonName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/commonNameLabel"
+        android:layout_below="@+id/commonNameLabel"
+        android:text="Testing"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
     <TextView
         android:id="@+id/scientificNameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/speciesImage"
         android:layout_below="@+id/commonName"
-        android:layout_marginRight="21dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginTop="15dp"
         android:text="@string/scientificNameLabel" />
 
+    <Button
+        android:id="@+id/edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/edit" />
+
     <TextView
-        android:id="@+id/commonNameLabel"
+        android:id="@+id/dateLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/scientificName"
+        android:layout_below="@+id/scientificName"
+        android:layout_marginTop="15dp"
+        android:text="@string/dateLabel" />
+
+    <TextView
+        android:id="@+id/dateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/dateLabel"
+        android:layout_below="@+id/dateLabel"
+        android:text="Testing"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/recorderLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/dateText"
+        android:layout_below="@+id/dateText"
+        android:layout_marginTop="14dp"
+        android:text="@string/recorderLabel" />
+
+    <TextView
+        android:id="@+id/recorderText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/commonName"
-        android:layout_below="@+id/speciesImage"
-        android:text="@string/commonNameLabel" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/scientificName"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="36dp"
-        android:text="@string/edit" />
+        android:layout_below="@+id/recorderLabel"
+        android:text="Testing"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>

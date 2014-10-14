@@ -36,6 +36,8 @@ public class EventsActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_events);
+		
+		getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.niceGreen));
 		/*
 		// Get the message from the intent
 	    Intent intent = getIntent();
@@ -57,7 +59,10 @@ public class EventsActivity extends FragmentActivity {
 				Log.d(TAG,r.getCommonName());
 			}
 		}
-	   
+        Intent intent = getIntent();
+        String location = (String) intent.getStringExtra("event");
+        TextView event = (TextView) findViewById(R.id.eventPlace);
+	    event.setText(location);
 	}
 
 	@Override
@@ -77,29 +82,57 @@ public class EventsActivity extends FragmentActivity {
         startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
     }
     
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-       // TODO Auto-generated method stub
-       super.onActivityResult(requestCode, resultCode, data);
-       if(resultCode != RESULT_CANCELED){
-	       if (requestCode == 0){
-	    	   TextView textView = (TextView) findViewById(R.id.secondLine);
-	    	   textView.setText("cancel	requestCode: " + requestCode + " resultCode: " + resultCode);
-	       }
-	       else{
-		       Bitmap bp = (Bitmap) data.getExtras().get("data");
-		       Intent recordNewEntryIntent = new Intent(this, NewEntryActivity.class);
-		       recordNewEntryIntent.putExtra("photo", bp);
-		       startActivity(recordNewEntryIntent);
-		       
-		       /*
-		       imgFavorite.setImageBitmap(bp);
-		       TextView textView = (TextView) findViewById(R.id.secondLine);
-	    	   textView.setText("requestCode: " + requestCode + " resultCode: " + resultCode);
-	    	   */
-	       }
-       }
-    }
+	 @Override
+	    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    	ArrayList<String> f = new ArrayList<String>();// list of file paths
+	    	File[] listFile;
+	    	//Log.d(TAG, String.valueOf(requestCode));
+	    	if (requestCode == REQUEST_IMAGE_CAPTURE) {
+	            if (resultCode == RESULT_OK) {
+	                // Image captured and saved to fileUri specified in the Intent
+	            	File file= new File(Environment.getExternalStoragePublicDirectory(
+	                        Environment.DIRECTORY_PICTURES), "Bioblitz");
+
+	                if (file.isDirectory())
+	                {
+	                    listFile = file.listFiles();
+
+
+	                    for (int i = 0; i < listFile.length; i++)
+	                    {
+
+	                        f.add(listFile[i].getAbsolutePath());
+
+	                    }
+	                    
+	/*                    Bitmap myBitmap = BitmapFactory.decodeFile(listFile[0].getAbsolutePath());
+	                    
+	                    ImageView myImage = (ImageView) findViewById(R.id.test);
+	                    Log.d(TAG, myImage.toString());
+	                    myImage.setImageBitmap(myBitmap);*/
+	                    
+	                    Intent intent = new Intent(this, NewEntryActivity.class);
+	                    intent.putParcelableArrayListExtra("listRecords", listRecords);
+	                    intent.putExtra("imagePath", listFile[0].getAbsolutePath());
+	                    startActivity(intent);
+	                    
+	                }
+	                else{
+	                	Log.e(TAG, "directory lost");
+	                }
+	               
+	            } else if (resultCode == RESULT_CANCELED) {
+	                // User cancelled the image capture
+	            		Log.e(TAG, "canceled");
+	 	       	}
+	        } 
+	    	else {
+	                // Image capture failed, advise user
+	        }
+	        
+	    	
+	   	
+	    }
     
     public void startSomething(View View) {
         DialogFragment newFragment = new newEntryPopUp ();
@@ -120,19 +153,16 @@ public class EventsActivity extends FragmentActivity {
 			            		   Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 			            	        
 			            	        fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
-			            	        takePictureIntent.putParcelableArrayListExtra("listRecords", listRecords);
 			            	        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
 
 			            	        // start the image capture Intent
 			            	        getActivity().startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
 			            		   
 			            	   }
-			            	   else if(which == 1){
-			            		   Log.d(TAG, "From Gallery");
-			            	   }
 			            	   else{
 			            		   Intent intent = new Intent(((Dialog) dialog).getContext(), NewEntryActivity.class);
-			            	    	startActivity(intent);
+			            		   intent.putParcelableArrayListExtra("listRecords", listRecords);
+			            		   startActivity(intent);
 			            	   }
 			           }
             	   });

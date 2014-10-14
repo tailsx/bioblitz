@@ -63,4 +63,14 @@
         android:onClick="addRecord"
         android:text="add" />
 
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/deletePicturesButton"
+        android:layout_marginLeft="30dp"
+        android:layout_toRightOf="@+id/button2"
+        android:onClick="playAudio"
+        android:text="Play Audio" />
+
 </RelativeLayout>

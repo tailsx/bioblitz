@@ -12,6 +12,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -43,9 +44,13 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
+        getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.pale));
+        
         Bundle data = getIntent().getExtras();
         if (data == null){
         	listRecords = new ArrayList<Record>();
+        	MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.canary);
+        	mp.start();
         }
 		else{
 			listRecords = data.getParcelableArrayList("listRecords");
@@ -218,18 +223,15 @@ public class MainActivity extends FragmentActivity {
 			            		   Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 			            	        
 			            	        fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
-			            	        takePictureIntent.putParcelableArrayListExtra("listRecords", listRecords);
 			            	        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
 
 			            	        // start the image capture Intent
 			            	        getActivity().startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
 			            		   
 			            	   }
-			            	   else if(which == 1){
-			            		   Log.d(TAG, "From Gallery");
-			            	   }
 			            	   else{
 			            		   Intent intent = new Intent(((Dialog) dialog).getContext(), NewEntryActivity.class);
+			            		   intent.putParcelableArrayListExtra("listRecords", listRecords);
 			            	    	startActivity(intent);
 			            	   }
 			           }

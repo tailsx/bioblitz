@@ -36,6 +36,8 @@ public class SpeciesEntryActivity extends FragmentActivity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_species_entry);
 		
+		getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.niceGreen));
+		
 		Bundle data = getIntent().getExtras();
         if (data == null){
         	listRecords = new ArrayList<Record>();
@@ -48,6 +50,12 @@ public class SpeciesEntryActivity extends FragmentActivity{
 	    
 	    TextView commonName = (TextView) findViewById(R.id.commonName);
 	    commonName.setText(record.getCommonName());
+	    TextView scientificName = (TextView) findViewById(R.id.scientificName);
+	    scientificName.setText(record.getScientificName());
+	    TextView dateText = (TextView) findViewById(R.id.dateText);
+	    dateText.setText(record.getDateRecorded());
+	    TextView recorderText = (TextView) findViewById(R.id.recorderText);
+	    recorderText.setText(record.getRecorder());
 	}
 
 	@Override
@@ -86,7 +94,7 @@ public class SpeciesEntryActivity extends FragmentActivity{
 
                     for (int i = 0; i < listFile.length; i++)
                     {
-
+ 
                         f.add(listFile[i].getAbsolutePath());
 
                     }
@@ -109,8 +117,7 @@ public class SpeciesEntryActivity extends FragmentActivity{
                
             } else if (resultCode == RESULT_CANCELED) {
                 // User cancelled the image capture
-            	TextView textView = (TextView) findViewById(R.id.secondLine);
- 	    	   textView.setText("cancel	requestCode: " + requestCode + " resultCode: " + resultCode);
+            	Log.d(TAG, "canceled");
  	       	}
         } 
     	else {
@@ -142,9 +149,8 @@ public class SpeciesEntryActivity extends FragmentActivity{
     
     public void listRecords (View view){
     	for (Record r : listRecords){
-    		System.out.println(r.getCommonName());
+    		Log.d(TAG,r.getCommonName());
         }
-    	System.out.println(listRecords.toString());
     }
    
     public void startSomething(View View) {
@@ -166,19 +172,16 @@ public class SpeciesEntryActivity extends FragmentActivity{
 			            		   Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 			            	        
 			            	        fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
-			            	        takePictureIntent.putParcelableArrayListExtra("listRecords", listRecords);
 			            	        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
 
 			            	        // start the image capture Intent
 			            	        getActivity().startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
 			            		   
 			            	   }
-			            	   else if(which == 1){
-			            		   Log.d(TAG, "From Gallery");
-			            	   }
 			            	   else{
 			            		   Intent intent = new Intent(((Dialog) dialog).getContext(), NewEntryActivity.class);
-			            	    	startActivity(intent);
+			            		   intent.putParcelableArrayListExtra("listRecords", listRecords);
+			            		   startActivity(intent);
 			            	   }
 			           }
             	   });

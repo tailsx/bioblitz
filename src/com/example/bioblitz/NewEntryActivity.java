@@ -40,6 +40,8 @@ public class NewEntryActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_entry);
 		
+		getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.someBlue));
+		
 		Bundle data = getIntent().getExtras();
         if (data == null){
         	listRecords = new ArrayList<Record>();
@@ -87,6 +89,7 @@ public class NewEntryActivity extends FragmentActivity {
 	
 	public void cancel(View view) {
 		Intent intent = new Intent(this, DataActivity.class);
+		intent.putParcelableArrayListExtra("listRecords", listRecords);
 		startActivity(intent);
 	}
 	
@@ -149,8 +152,7 @@ public class NewEntryActivity extends FragmentActivity {
                
             } else if (resultCode == RESULT_CANCELED) {
                 // User cancelled the image capture
-            	TextView textView = (TextView) findViewById(R.id.secondLine);
- 	    	   textView.setText("cancel	requestCode: " + requestCode + " resultCode: " + resultCode);
+            	Log.d(TAG, "canceled");
  	       	}
         } 
     	else {
@@ -198,19 +200,16 @@ public class NewEntryActivity extends FragmentActivity {
 			            		   Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 			            	        
 			            	        fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
-			            	        takePictureIntent.putParcelableArrayListExtra("listRecords", listRecords);
 			            	        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
 
 			            	        // start the image capture Intent
 			            	        getActivity().startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
 			            		   
 			            	   }
-			            	   else if(which == 1){
-			            		   Log.d(TAG, "From Gallery");
-			            	   }
 			            	   else{
 			            		   Intent intent = new Intent(((Dialog) dialog).getContext(), NewEntryActivity.class);
-			            	    	startActivity(intent);
+			            		   intent.putParcelableArrayListExtra("listRecords", listRecords);
+			            		   startActivity(intent);
 			            	   }
 			           }
             	   });

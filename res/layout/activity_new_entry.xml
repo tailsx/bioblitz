@@ -155,17 +155,6 @@
         android:ems="10"
         android:inputType="date" />
 
-    <Button
-        android:id="@+id/cancelButton"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/recorderField"
-        android:layout_below="@+id/recorderField"
-        android:layout_marginTop="14dp"
-        android:onClick="cancel"
-        android:text="@string/cancel" />
-
     <TextView
         android:id="@+id/recorderLabel"
         android:layout_width="wrap_content"
@@ -185,6 +174,16 @@
         android:contentDescription="@string/speciesImage"
         android:maxHeight="@dimen/max_image_height"
         android:maxWidth="@dimen/max_image_width"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/template" />
+
+    <Button
+        android:id="@+id/cancelButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/recorderField"
+        android:layout_below="@+id/recorderField"
+        android:onClick="cancel"
+        android:text="@string/cancel" />
 
 </RelativeLayout>

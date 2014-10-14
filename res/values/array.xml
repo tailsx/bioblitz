@@ -2,7 +2,6 @@
 <resources>
     <array name="pictureChoices">
         <item>To Camera</item>
-        <item>From Gallery</item>
         <item>No Photo</item>
     </array>
 </resources>
