@@ -4,19 +4,6 @@
     android:layout_height="match_parent"
     tools:context=".NewEntryActivity" >
 
-    <ImageView
-        android:id="@+id/speciesImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="53dp"
-        android:contentDescription="@string/speciesImage"
-        android:maxHeight="@dimen/max_image_height"
-        android:maxWidth="@dimen/max_image_width"
-        android:adjustViewBounds= "true"
-        android:src="@drawable/ic_launcher" />
-
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
@@ -61,7 +48,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:onClick="dispatchTakePictureIntent"
+                android:onClick="startSomething"
                 android:text="@string/record" />
         </RelativeLayout>
 
@@ -89,6 +76,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:onClick="toMore"
                 android:text="@string/more" />
         </RelativeLayout>
     </LinearLayout>
@@ -185,5 +173,18 @@
         android:layout_alignLeft="@+id/dateField"
         android:layout_below="@+id/dateField"
         android:text="@string/recorderLabel" />
+
+    <ImageView
+        android:id="@+id/speciesImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/speciesImage"
+        android:maxHeight="@dimen/max_image_height"
+        android:maxWidth="@dimen/max_image_width"
+        android:src="@drawable/ic_launcher" />
 
 </RelativeLayout>

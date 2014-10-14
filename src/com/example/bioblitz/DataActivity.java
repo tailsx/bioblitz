@@ -49,41 +49,43 @@ public class DataActivity extends FragmentActivity {
 		Bundle data = getIntent().getExtras();
         if (data == null){
         	listRecords = new ArrayList<Record>();
-        	
         }
 		else{
 			listRecords = data.getParcelableArrayList("listRecords");
-			
-			for (Record r : listRecords){
-				list.add(r.getCommonName());
-			}
-			final StableArrayAdapter adapter = new StableArrayAdapter(this,
-		            android.R.layout.simple_list_item_1, list);
-		        listView.setAdapter(adapter);
-		        
-		        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-		        	Record selected;
-		          @Override
-		          public void onItemClick(AdapterView<?> parent, final View view,
-		              int position, long id) {
-		            final String item = (String) parent.getItemAtPosition(position);
-		            
-		            
-		            for (Record r : listRecords){
-		            	if (r.getCommonName() == item){
-		            		selected = r;
-		            	}
-		            }
-		            
-		            intent.putExtra("species", selected);
-		            intent.putParcelableArrayListExtra("listRecords", listRecords);
-		            adapter.notifyDataSetChanged();
-		            startActivity(intent);
-		          }
-
-		        });     
-
 		}
+		
+
+			
+		for (Record r : listRecords){
+			list.add(r.getCommonName());
+		}
+		final StableArrayAdapter adapter = new StableArrayAdapter(this,
+	            android.R.layout.simple_list_item_1, list);
+	        listView.setAdapter(adapter);
+	        
+	        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+	        	Record selected;
+	          @Override
+	          public void onItemClick(AdapterView<?> parent, final View view,
+	              int position, long id) {
+	            final String item = (String) parent.getItemAtPosition(position);
+	            
+	            
+	            for (Record r : listRecords){
+	            	if (r.getCommonName() == item){
+	            		selected = r;
+	            	}
+	            }
+	            
+	            intent.putExtra("species", selected);
+	            intent.putParcelableArrayListExtra("listRecords", listRecords);
+	            adapter.notifyDataSetChanged();
+	            startActivity(intent);
+	          }
+
+	        });     
+
+		
 	
 	}
 

@@ -45,7 +45,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:onClick="startSomething"
                 android:text="@string/reference" />
         </RelativeLayout>
 
@@ -59,7 +58,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:onClick="dispatchTakePictureIntent"
+                android:onClick="startSomething"
                 android:text="@string/record" />
         </RelativeLayout>
 
