@@ -35,6 +35,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:onClick="toReference"
                 android:text="@string/reference" />
         </RelativeLayout>
 
@@ -100,6 +101,7 @@
         android:contentDescription="@string/speciesImage"
         android:maxHeight="@dimen/max_image_height"
         android:maxWidth="@dimen/max_image_width"
+        android:adjustViewBounds="true"
         android:src="@drawable/template" />
 
     <TextView
@@ -128,16 +130,6 @@
         android:layout_marginRight="18dp"
         android:layout_marginTop="15dp"
         android:text="@string/scientificNameLabel" />
-
-    <Button
-        android:id="@+id/edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="24dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/edit" />
 
     <TextView
         android:id="@+id/dateLabel"

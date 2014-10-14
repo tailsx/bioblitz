@@ -50,16 +50,19 @@ public class MoreActivity extends Activity {
 
             for (int i = 0; i < listFile.length; i++)
             {
-
-            	if(listFile[i].delete()){
-        			System.out.println(listFile[i].getName() + " is deleted!");
-        		}else{
-        			System.out.println("Delete operation is failed.");
-        		}
-
+            	if (!listFile[i].getName().equals("IMG_20141014_023852.jpg")){
+            		if (!listFile[i].getName().equals("IMG_20141014_024358.jpg")){
+		            	if(listFile[i].delete()){
+		        			System.out.println(listFile[i].getName() + " is deleted!");
+		        		}else{
+		        			System.out.println("Delete operation is failed.");
+		        		}
+            		}
+            	}
             }
             
         }
+		listRecords.removeAll(listRecords);
 	}
 	
 	public void listAllPictures(View view){
@@ -74,7 +77,7 @@ public class MoreActivity extends Activity {
 
             for (int i = 0; i < listFile.length; i++)
             {
-
+            	Log.d(TAG,listFile[i].getAbsolutePath());
             	Log.d(TAG, listFile[i].getName());
 
             }
@@ -95,8 +98,19 @@ public class MoreActivity extends Activity {
     }
 	
 	public void addRecord (View view){
-    	Record r = new Record("af","fwef","fweef","efw","sdf");
-    	listRecords.add(r);
+    	Record r1 = new Record(	"/mnt/sdcard/Pictures/BioBlitz/IMG_20141014_023852.jpg",
+    							"Android",
+    							"Robotius Successius",
+    							"September 23, 2008",
+    							"Andy Rubin");
+    	
+    	Record r2 = new Record(	"/mnt/sdcard/Pictures/BioBlitz/IMG_20141014_024358.jpg",
+								"Box",
+								"Atractius badbreathios",
+								"September 22, 2014",
+								"Unknown");
+    	listRecords.add(r1);
+    	listRecords.add(r2);
     }
 	
 	public void playAudio (View view){

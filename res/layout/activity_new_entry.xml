@@ -35,6 +35,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:onClick="toReference"
                 android:text="@string/reference" />
         </RelativeLayout>
 
@@ -138,14 +139,6 @@
         android:ems="10"
         android:inputType="date" />
 
-    <TextView
-        android:id="@+id/dateLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/scientificNameField"
-        android:layout_below="@+id/scientificNameField"
-        android:text="@string/dateLabel" />
-
     <EditText
         android:id="@+id/recorderField"
         android:layout_width="wrap_content"
@@ -153,15 +146,7 @@
         android:layout_alignLeft="@+id/saveButton"
         android:layout_below="@+id/recorderLabel"
         android:ems="10"
-        android:inputType="date" />
-
-    <TextView
-        android:id="@+id/recorderLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/dateField"
-        android:layout_below="@+id/dateField"
-        android:text="@string/recorderLabel" />
+        android:inputType="text" />
 
     <ImageView
         android:id="@+id/speciesImage"
@@ -176,14 +161,30 @@
         android:maxWidth="@dimen/max_image_width"
         android:src="@drawable/template" />
 
+    <TextView
+        android:id="@+id/recorderLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/scientificNameField"
+        android:layout_below="@+id/scientificNameField"
+        android:text="@string/recorderLabel" />
+
     <Button
         android:id="@+id/cancelButton"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/recorderField"
-        android:layout_below="@+id/recorderField"
+        android:layout_alignRight="@+id/dateField"
+        android:layout_below="@+id/dateField"
         android:onClick="cancel"
         android:text="@string/cancel" />
+
+    <TextView
+        android:id="@+id/dateLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/recorderField"
+        android:layout_below="@+id/recorderField"
+        android:text="@string/dateLabel" />
 
 </RelativeLayout>

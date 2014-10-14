@@ -186,6 +186,12 @@ public class MainActivity extends FragmentActivity {
    	
     }
     
+    public void toReference (View view){
+    	Intent intent = new Intent(this, ReferenceActivity.class);
+    	intent.putParcelableArrayListExtra("listRecords", listRecords);
+    	startActivity(intent);
+    }
+    
     public void toData (View view){
     	Intent intent = new Intent(this, DataActivity.class);
     	intent.putParcelableArrayListExtra("listRecords", listRecords);
@@ -193,9 +199,7 @@ public class MainActivity extends FragmentActivity {
     }
     
     public void toEvents (View view){
-    	Intent intent = new Intent(this, MainActivity.class);
-    	intent.putParcelableArrayListExtra("listRecords", listRecords);
-    	startActivity(intent);
+    	
     }
     
     public void toMore (View view){

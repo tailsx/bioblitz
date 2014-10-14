@@ -72,11 +72,6 @@ public class EventsActivity extends FragmentActivity {
 		return true;
 	}
 	
-	public void toMain(View view) {
-		Intent intent = new Intent(this, MainActivity.class);
-		startActivity(intent);
-	}
-	
 	public void dispatchTakePictureIntent(View view) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
@@ -170,6 +165,12 @@ public class EventsActivity extends FragmentActivity {
             // Create the AlertDialog object and return it
             return builder.create();
         }
+    }
+    
+    public void toReference (View view){
+    	Intent intent = new Intent(this, ReferenceActivity.class);
+    	intent.putParcelableArrayListExtra("listRecords", listRecords);
+    	startActivity(intent);
     }
     
     public void toData (View view){

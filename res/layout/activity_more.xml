@@ -51,7 +51,7 @@
         android:layout_alignLeft="@+id/button2"
         android:layout_below="@+id/button2"
         android:layout_marginTop="42dp"
-        android:onClick="toEventOne"
+        android:onClick="toEvents"
         android:text="toEvents" />
 
     <Button

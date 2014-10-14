@@ -29,8 +29,9 @@
     <string name="edit">Edit</string>
 
     <!-- Species Entry strings -->
-    
+
     <string name="choiceTitle">Add a photo?</string>
     <string name="title_activity_more">MoreActivity</string>
+    <string name="title_activity_reference">ReferenceActivity</string>
 
 </resources>

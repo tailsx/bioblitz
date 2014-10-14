@@ -9,6 +9,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -30,7 +32,8 @@ public class SpeciesEntryActivity extends FragmentActivity{
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
     public static ArrayList<Record> listRecords;
-
+    Bitmap myBitmap;
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,6 +51,13 @@ public class SpeciesEntryActivity extends FragmentActivity{
         
 		Record record = (Record) data.getParcelable("species");
 	    
+		if (record.getImagePath() != null){
+			ImageView imageView = (ImageView)findViewById(R.id.speciesImage);
+			myBitmap = BitmapFactory.decodeFile(record.getImagePath());        
+	        Log.d(TAG, imageView.toString());
+	        imageView.setImageBitmap(myBitmap);
+		}
+        
 	    TextView commonName = (TextView) findViewById(R.id.commonName);
 	    commonName.setText(record.getCommonName());
 	    TextView scientificName = (TextView) findViewById(R.id.scientificName);
@@ -67,7 +77,7 @@ public class SpeciesEntryActivity extends FragmentActivity{
 	
 	public void dispatchTakePictureIntent(View view) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        
+        myBitmap.recycle();
         fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
         takePictureIntent.putParcelableArrayListExtra("listRecords", listRecords);
         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
@@ -144,8 +154,7 @@ public class SpeciesEntryActivity extends FragmentActivity{
     	Intent intent = new Intent(this, MoreActivity.class);
     	intent.putParcelableArrayListExtra("listRecords", listRecords);
     	startActivity(intent);
-    }
-    
+    }  
     
     public void listRecords (View view){
     	for (Record r : listRecords){
@@ -170,7 +179,6 @@ public class SpeciesEntryActivity extends FragmentActivity{
 			               // of the selected item
 			            	   if(which==0){
 			            		   Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-			            	        
 			            	        fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
 			            	        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
 

@@ -45,6 +45,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:onClick="toReference"
                 android:text="@string/reference" />
         </RelativeLayout>
 
@@ -91,24 +92,11 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/test"
+    <TextView
+        android:id="@+id/empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:maxHeight="@dimen/max_image_height"
-        android:maxWidth="@dimen/max_image_width"
-        android:adjustViewBounds= "true"
-        android:src="@drawable/ic_launcher" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/test"
-        android:onClick="listRecords"
-        android:text="listRecords" />
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

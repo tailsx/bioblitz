@@ -4,13 +4,15 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,91 +22,100 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.ListView;
 
-public class NewEntryActivity extends FragmentActivity {
 
+public class ReferenceActivity extends FragmentActivity {
+
+	private static final String TAG = "ReferenceActivity";
 	static final int REQUEST_IMAGE_CAPTURE = 1;
-	private static final String TAG = "NewEntryActivity";
-	ImageView imageView;
-	Record currentRecord;
-	public static ArrayList<Record> listRecords;
+	ImageView imgFavorite;
 	private static Uri fileUri;
-	public static final int MEDIA_TYPE_IMAGE = 1;
-	public static final int MEDIA_TYPE_VIDEO = 2;
-	Bitmap myBitmap;
+    public static final int MEDIA_TYPE_IMAGE = 1;
+    public static final int MEDIA_TYPE_VIDEO = 2;
+    public static ArrayList<Record> listRecords;
 	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_new_entry);
-		
-		getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.someBlue));
-		
-		Bundle data = getIntent().getExtras();
+	
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        
+        getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.brownIThink));
+        
+        Bundle data = getIntent().getExtras();
         if (data == null){
         	listRecords = new ArrayList<Record>();
         }
 		else{
 			listRecords = data.getParcelableArrayList("listRecords");
 		}
-		
-		imageView = (ImageView)findViewById(R.id.speciesImage);
-		Intent intent = getIntent();
-		Log.d(TAG,intent.toString());
-		String imagePath = intent.getStringExtra("imagePath");
-		if (imagePath != null){
-			currentRecord = new Record(imagePath, null, null, null, null);
-			
-			myBitmap = BitmapFactory.decodeFile(imagePath);
-           
-            Log.d(TAG, imageView.toString());
-            imageView.setImageBitmap(myBitmap);
-		}
-		else{
-			currentRecord = new Record(null, null, null, null, null);
-		}
-	}
+        
+        
+        imgFavorite = (ImageView)findViewById(R.id.icon);
+        ListView listView = (ListView) findViewById(R.id.listView1);
+        final Intent intent = new Intent(this, EventsActivity.class);
+        
+        String[] values = new String[] { "Bird Field Guide", "Plant Field Guide", "Insect Field Guide"};
+        
 
-	
-	public void saveRecord(View view) {
-		EditText commonName = (EditText) findViewById(R.id.commonNameField);
-		EditText scientificName = (EditText) findViewById(R.id.scientificNameField);
-		EditText date = (EditText) findViewById(R.id.dateField);
-		EditText recorder = (EditText) findViewById(R.id.recorderField);
-		
-		currentRecord.setCommonName(commonName.getText().toString());
-		currentRecord.setScientificName(scientificName.getText().toString());
-		currentRecord.setDateRecorded(date.getText().toString());
-		currentRecord.setRecorder(recorder.getText().toString());
-		
-		listRecords.add(currentRecord);
-		
-		Intent intent = new Intent(this, DataActivity.class);
-		intent.putParcelableArrayListExtra("listRecords", listRecords);
-		intent.putExtra("record", currentRecord);
-		
-		myBitmap.recycle();
-		startActivity(intent);
-	}
-	
-	public void cancel(View view) {
-		Intent intent = new Intent(this, DataActivity.class);
-		intent.putParcelableArrayListExtra("listRecords", listRecords);
-		startActivity(intent);
-	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.new_entry, menu);
-		return true;
-	}
+        final ArrayList<String> list = new ArrayList<String>();
+        for (int i = 0; i < values.length; ++i) {
+          list.add(values[i]);
+        }
+        final StableArrayAdapter adapter = new StableArrayAdapter(this,
+            android.R.layout.simple_list_item_1, list);
+        listView.setAdapter(adapter);
 
-	public void dispatchTakePictureIntent(View view) {
-		myBitmap.recycle();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+          @Override
+          public void onItemClick(AdapterView<?> parent, final View view,
+              int position, long id) {
+
+          }
+
+        });
+        
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+    
+    private class StableArrayAdapter extends ArrayAdapter<String> {
+
+        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
+
+        public StableArrayAdapter(Context context, int textViewResourceId,
+            List<String> objects) {
+          super(context, textViewResourceId, objects);
+          for (int i = 0; i < objects.size(); ++i) {
+            mIdMap.put(objects.get(i), i);
+          }
+        }
+
+        @Override
+        public long getItemId(int position) {
+          String item = getItem(position);
+          return mIdMap.get(item);
+        }
+
+        @Override
+        public boolean hasStableIds() {
+          return true;
+        }
+
+    }
+
+    public void dispatchTakePictureIntent(View view) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         
         fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
@@ -156,7 +167,7 @@ public class NewEntryActivity extends FragmentActivity {
                
             } else if (resultCode == RESULT_CANCELED) {
                 // User cancelled the image capture
-            	Log.d(TAG, "canceled");
+            		Log.e(TAG, "canceled");
  	       	}
         } 
     	else {
@@ -168,9 +179,7 @@ public class NewEntryActivity extends FragmentActivity {
     }
     
     public void toReference (View view){
-    	Intent intent = new Intent(this, ReferenceActivity.class);
-    	intent.putParcelableArrayListExtra("listRecords", listRecords);
-    	startActivity(intent);
+
     }
     
     public void toData (View view){
@@ -190,7 +199,7 @@ public class NewEntryActivity extends FragmentActivity {
     	intent.putParcelableArrayListExtra("listRecords", listRecords);
     	startActivity(intent);
     }
-    
+
     public void startSomething(View View) {
         DialogFragment newFragment = new newEntryPopUp ();
         newFragment.show(getSupportFragmentManager(), "missiles");
@@ -219,7 +228,7 @@ public class NewEntryActivity extends FragmentActivity {
 			            	   else{
 			            		   Intent intent = new Intent(((Dialog) dialog).getContext(), NewEntryActivity.class);
 			            		   intent.putParcelableArrayListExtra("listRecords", listRecords);
-			            		   startActivity(intent);
+			            	    	startActivity(intent);
 			            	   }
 			           }
             	   });
@@ -267,5 +276,4 @@ public class NewEntryActivity extends FragmentActivity {
 
         return mediaFile;
     }
-
 }

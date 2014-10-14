@@ -42,10 +42,11 @@ public class DataActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_data);
-				
+
 		ListView listView = (ListView) findViewById(R.id.listView1);
 		final Intent intent = new Intent(this, SpeciesEntryActivity.class);
-
+		TextView textView = (TextView) findViewById(R.id.empty);
+		
 		Bundle data = getIntent().getExtras();
         if (data == null){
         	listRecords = new ArrayList<Record>();
@@ -54,6 +55,9 @@ public class DataActivity extends FragmentActivity {
 			listRecords = data.getParcelableArrayList("listRecords");
 		}
 		
+        if (listRecords.size() == 0){
+        	textView.setText("No recorded entries");
+        }
 
 			
 		for (Record r : listRecords){
@@ -148,61 +152,65 @@ public class DataActivity extends FragmentActivity {
     }
     
 	 @Override
-	    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-	    	ArrayList<String> f = new ArrayList<String>();// list of file paths
-	    	File[] listFile;
-	    	//Log.d(TAG, String.valueOf(requestCode));
-	    	if (requestCode == REQUEST_IMAGE_CAPTURE) {
-	            if (resultCode == RESULT_OK) {
-	                // Image captured and saved to fileUri specified in the Intent
-	            	File file= new File(Environment.getExternalStoragePublicDirectory(
-	                        Environment.DIRECTORY_PICTURES), "Bioblitz");
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	ArrayList<String> f = new ArrayList<String>();// list of file paths
+    	File[] listFile;
+    	//Log.d(TAG, String.valueOf(requestCode));
+    	if (requestCode == REQUEST_IMAGE_CAPTURE) {
+            if (resultCode == RESULT_OK) {
+                // Image captured and saved to fileUri specified in the Intent
+            	File file= new File(Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_PICTURES), "Bioblitz");
 
-	                if (file.isDirectory())
-	                {
-	                    listFile = file.listFiles();
+                if (file.isDirectory())
+                {
+                    listFile = file.listFiles();
 
 
-	                    for (int i = 0; i < listFile.length; i++)
-	                    {
+                    for (int i = 0; i < listFile.length; i++)
+                    {
 
-	                        f.add(listFile[i].getAbsolutePath());
+                        f.add(listFile[i].getAbsolutePath());
 
-	                    }
-	                    
-	/*                    Bitmap myBitmap = BitmapFactory.decodeFile(listFile[0].getAbsolutePath());
-	                    
-	                    ImageView myImage = (ImageView) findViewById(R.id.test);
-	                    Log.d(TAG, myImage.toString());
-	                    myImage.setImageBitmap(myBitmap);*/
-	                    
-	                    Intent intent = new Intent(this, NewEntryActivity.class);
-	                    intent.putParcelableArrayListExtra("listRecords", listRecords);
-	                    intent.putExtra("imagePath", listFile[0].getAbsolutePath());
-	                    startActivity(intent);
-	                    
-	                }
-	                else{
-	                	Log.e(TAG, "directory lost");
-	                }
-	               
-	            } else if (resultCode == RESULT_CANCELED) {
-	                // User cancelled the image capture
-	            		Log.e(TAG, "canceled");
-	 	       	}
-	        } 
-	    	else {
-	                // Image capture failed, advise user
-	        }
-	        
-	    	
-	   	
-	    }
+                    }
+                    
+/*                    Bitmap myBitmap = BitmapFactory.decodeFile(listFile[0].getAbsolutePath());
+                    
+                    ImageView myImage = (ImageView) findViewById(R.id.test);
+                    Log.d(TAG, myImage.toString());
+                    myImage.setImageBitmap(myBitmap);*/
+                    
+                    Intent intent = new Intent(this, NewEntryActivity.class);
+                    intent.putParcelableArrayListExtra("listRecords", listRecords);
+                    intent.putExtra("imagePath", listFile[0].getAbsolutePath());
+                    startActivity(intent);
+                    
+                }
+                else{
+                	Log.e(TAG, "directory lost");
+                }
+               
+            } else if (resultCode == RESULT_CANCELED) {
+                // User cancelled the image capture
+            		Log.e(TAG, "canceled");
+ 	       	}
+        } 
+    	else {
+                // Image capture failed, advise user
+        }
+        
+    	
+   	
+    }
     
+	 public void toReference (View view){
+	    	Intent intent = new Intent(this, ReferenceActivity.class);
+	    	intent.putParcelableArrayListExtra("listRecords", listRecords);
+	    	startActivity(intent);
+	} 
+	 
     public void toData (View view){
-    	Intent intent = new Intent(this, DataActivity.class);
-    	intent.putParcelableArrayListExtra("listRecords", listRecords);
-    	startActivity(intent);
+
     }
     
     public void toEvents (View view){
