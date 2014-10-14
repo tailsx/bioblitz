@@ -17,6 +17,8 @@
     <!-- Record activity strings -->
     <string name="commonNameLabel">Common Name</string>
     <string name="scientificNameLabel">Scientific Name</string>
+    <string name="dateLabel">Date Recorded</string>
+    <string name="recorderLabel">Person Recording</string>
     <string name="speciesImage">Image of species</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>

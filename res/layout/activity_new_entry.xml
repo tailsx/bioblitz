@@ -6,34 +6,16 @@
 
     <ImageView
         android:id="@+id/speciesImage"
-        android:contentDescription="@string/speciesImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="53dp"
+        android:contentDescription="@string/speciesImage"
+        android:maxHeight="@dimen/max_image_height"
+        android:maxWidth="@dimen/max_image_width"
+        android:adjustViewBounds= "true"
         android:src="@drawable/ic_launcher" />
-
-    <Button
-        android:id="@+id/saveButton"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/scientificNameField"
-        android:layout_below="@+id/scientificNameField"
-        android:layout_marginTop="25dp"
-        android:onClick="saveRecord"
-        android:text="@string/save" />
-
-    <Button
-        android:id="@+id/cancelButton"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/scientificNameField"
-        android:layout_alignTop="@+id/saveButton"
-        android:onClick="cancel"
-        android:text="@string/cancel" />
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -147,5 +129,61 @@
         android:layout_alignLeft="@+id/commonNameField"
         android:layout_below="@+id/speciesImage"
         android:text="@string/commonNameLabel" />
+
+    <Button
+        android:id="@+id/saveButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/cancelButton"
+        android:layout_alignBottom="@+id/cancelButton"
+        android:layout_alignLeft="@+id/dateField"
+        android:onClick="saveRecord"
+        android:text="@string/save" />
+
+    <EditText
+        android:id="@+id/dateField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/scientificNameField"
+        android:layout_below="@+id/dateLabel"
+        android:ems="10"
+        android:inputType="date" />
+
+    <TextView
+        android:id="@+id/dateLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/scientificNameField"
+        android:layout_below="@+id/scientificNameField"
+        android:text="@string/dateLabel" />
+
+    <EditText
+        android:id="@+id/recorderField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/saveButton"
+        android:layout_below="@+id/recorderLabel"
+        android:ems="10"
+        android:inputType="date" />
+
+    <Button
+        android:id="@+id/cancelButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/recorderField"
+        android:layout_below="@+id/recorderField"
+        android:layout_marginTop="14dp"
+        android:onClick="cancel"
+        android:text="@string/cancel" />
+
+    <TextView
+        android:id="@+id/recorderLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/dateField"
+        android:layout_below="@+id/dateField"
+        android:text="@string/recorderLabel" />
 
 </RelativeLayout>

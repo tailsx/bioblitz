@@ -24,4 +24,43 @@
         android:onClick="deleteAllPictures"
         android:text="Delete?" />
 
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/deletePicturesButton"
+        android:layout_below="@+id/deletePicturesButton"
+        android:layout_marginTop="24dp"
+        android:onClick="listAllPictures"
+        android:text="list" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button1"
+        android:layout_below="@+id/button1"
+        android:layout_marginTop="44dp"
+        android:onClick="displayRecords"
+        android:text="displayRecords" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button2"
+        android:layout_below="@+id/button2"
+        android:layout_marginTop="42dp"
+        android:onClick="toEventOne"
+        android:text="toEvents" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button2"
+        android:layout_below="@+id/button2"
+        android:onClick="addRecord"
+        android:text="add" />
+
 </RelativeLayout>

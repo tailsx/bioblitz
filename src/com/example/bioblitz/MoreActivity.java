@@ -1,23 +1,33 @@
 package com.example.bioblitz;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.ImageView;
+
 
 public class MoreActivity extends Activity {
+	private final static String TAG = "MoreActivity";
+	public static ArrayList<Record> listRecords;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_more);
+		
+		Bundle data = getIntent().getExtras();
+        if (data == null){
+        	listRecords = new ArrayList<Record>();
+        }
+		else{
+			listRecords = data.getParcelableArrayList("listRecords");
+		}
 	}
 
 	@Override
@@ -50,4 +60,41 @@ public class MoreActivity extends Activity {
             
         }
 	}
+	
+	public void listAllPictures(View view){
+		File[] listFile;
+		
+		File file= new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), "Bioblitz");
+		
+		if (file.isDirectory())
+        {
+            listFile = file.listFiles();
+
+            for (int i = 0; i < listFile.length; i++)
+            {
+
+            	Log.d(TAG, listFile[i].getName());
+
+            }
+            
+        }
+	}
+	
+	public void displayRecords(View view){
+		for (Record r : listRecords){
+			Log.d(TAG,r.getCommonName());
+		}
+	}
+	
+	public void toEventOne (View view){
+    	Intent intent = new Intent(this, EventsActivity.class);
+    	intent.putParcelableArrayListExtra("listRecords", listRecords);
+    	startActivity(intent);
+    }
+	
+	public void addRecord (View view){
+    	Record r = new Record("af","fwef","fweef","efw","sdf");
+    	listRecords.add(r);
+    }
 }

@@ -1,10 +1,13 @@
 package com.example.bioblitz;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,6 +19,8 @@ public class EventsActivity extends Activity {
 	
 	static final int REQUEST_IMAGE_CAPTURE = 1;
 	ImageView imgFavorite;
+	public static ArrayList<Record> listRecords;
+	static final String TAG = "EventsActivity";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,17 @@ public class EventsActivity extends Activity {
 	    textView.setTextSize(40);
 	    textView.setText(message);
 	    */
+		Bundle data = getIntent().getExtras();
+        if (data == null){
+        	listRecords = new ArrayList<Record>();
+        }
+		else{
+			listRecords = data.getParcelableArrayList("listRecords");
+		}
+        
+        for (Record r : listRecords){
+			Log.d(TAG,r.getCommonName());
+		}
 	   
 	}
 

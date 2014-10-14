@@ -20,11 +20,11 @@ public class SpeciesEntryActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_species_entry);
 		
-		Intent intent = getIntent();
-	    String common = intent.getStringExtra("species");
+		Bundle data = getIntent().getExtras();
+		Record record = (Record) data.getParcelable("species");
 	    
 	    TextView commonName = (TextView) findViewById(R.id.commonName);
-	    commonName.setText(common);
+	    commonName.setText(record.getCommonName());
 	}
 
 	@Override

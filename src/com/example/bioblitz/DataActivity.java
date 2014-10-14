@@ -12,8 +12,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -37,28 +35,34 @@ public class DataActivity extends FragmentActivity {
 	private static Uri fileUri;
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
+    public static ArrayList<Record> listRecords;
+    String[] values;
+    final ArrayList<String> list = new ArrayList<String>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_data);
-		
+				
 		ListView listView = (ListView) findViewById(R.id.listView1);
 		final Intent intent = new Intent(this, SpeciesEntryActivity.class);
-		
-		
-		String[] values;
-        
-		Intent intentdata = getIntent();
-	    String message = intentdata.getStringExtra("common");
-	    if (message != null){
-	    	values = new String[]{message};
-	    }
-	    else{
-	    	values = new String[]{"None are available"};
-	    }
 
-        final ArrayList<String> list = new ArrayList<String>();
+		Bundle data = getIntent().getExtras();
+		
+		if (data == null){
+        	listRecords = new ArrayList<Record>();
+        	values = new String[]{"None are available"};
+        }
+		else{
+			listRecords = data.getParcelableArrayList("listRecords");
+			
+			Record record = (Record) data.getParcelable("record");
+			if (record != null){
+	        	listRecords.add(record);
+	        	values = new String[]{record.getCommonName()};
+	        }
+		}
+
         for (int i = 0; i < values.length; ++i) {
           list.add(values[i]);
         }
@@ -68,17 +72,27 @@ public class DataActivity extends FragmentActivity {
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
+        	Record selected;
           @Override
           public void onItemClick(AdapterView<?> parent, final View view,
               int position, long id) {
             final String item = (String) parent.getItemAtPosition(position);
-            intent.putExtra("species", item);
+            
+            
+            for (Record r : listRecords){
+            	if (r.getCommonName() == item){
+            		selected = r;
+            	}
+            }
+            
+            intent.putExtra("species", selected);
+            intent.putParcelableArrayListExtra("listRecords", listRecords);
             adapter.notifyDataSetChanged();
             startActivity(intent);
           }
 
         });
+	
 	}
 
 	
@@ -108,6 +122,12 @@ public class DataActivity extends FragmentActivity {
     }
 	
 	@Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putParcelableArrayList("key", listRecords);
+        super.onSaveInstanceState(outState);
+    }
+	
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.data, menu);
@@ -118,6 +138,7 @@ public class DataActivity extends FragmentActivity {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         
         fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
+        takePictureIntent.putParcelableArrayListExtra("listRecords", listRecords);
         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
 
         // start the image capture Intent
@@ -128,7 +149,7 @@ public class DataActivity extends FragmentActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     	ArrayList<String> f = new ArrayList<String>();// list of file paths
     	File[] listFile;
-    	Log.d(TAG, String.valueOf(requestCode));
+    	//Log.d(TAG, String.valueOf(requestCode));
     	if (requestCode == REQUEST_IMAGE_CAPTURE) {
             if (resultCode == RESULT_OK) {
                 // Image captured and saved to fileUri specified in the Intent
@@ -147,15 +168,21 @@ public class DataActivity extends FragmentActivity {
 
                     }
                     
-                    Bitmap myBitmap = BitmapFactory.decodeFile(listFile[0].getAbsolutePath());
+/*                    Bitmap myBitmap = BitmapFactory.decodeFile(listFile[0].getAbsolutePath());
                     
                     ImageView myImage = (ImageView) findViewById(R.id.test);
                     Log.d(TAG, myImage.toString());
-                    myImage.setImageBitmap(myBitmap);
+                    myImage.setImageBitmap(myBitmap);*/
+                    
+                    Intent intent = new Intent(this, NewEntryActivity.class);
+                    intent.putParcelableArrayListExtra("listRecords", listRecords);
+                    intent.putExtra("imagePath", listFile[0].getAbsolutePath());
+                    startActivity(intent);
                     
                 }
-            	
-            	Log.d(TAG, f.toString());
+                else{
+                	Log.e(TAG, "directory lost");
+                }
                
             } else if (resultCode == RESULT_CANCELED) {
                 // User cancelled the image capture
@@ -190,6 +217,13 @@ public class DataActivity extends FragmentActivity {
         DialogFragment newFragment = new newEntryPopUp ();
         newFragment.show(getSupportFragmentManager(), "missiles");
     }
+    
+    public void listRecords (View view){
+    	for (Record r : listRecords){
+    		System.out.println(r.getCommonName());
+        }
+    	System.out.println(listRecords.toString());
+    }
    
     
     public static class newEntryPopUp extends DialogFragment {
@@ -206,6 +240,7 @@ public class DataActivity extends FragmentActivity {
 			            		   Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 			            	        
 			            	        fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
+			            	        takePictureIntent.putParcelableArrayListExtra("listRecords", listRecords);
 			            	        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
 
 			            	        // start the image capture Intent

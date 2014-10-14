@@ -34,12 +34,21 @@ public class MainActivity extends Activity {
 	private Uri fileUri;
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
+    public static ArrayList<Record> listRecords;
 	
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        Bundle data = getIntent().getExtras();
+        if (data == null){
+        	listRecords = new ArrayList<Record>();
+        }
+		else{
+			listRecords = data.getParcelableArrayList("listRecords");
+		}
         
         
         imgFavorite = (ImageView)findViewById(R.id.icon);
@@ -65,6 +74,7 @@ public class MainActivity extends Activity {
           public void onItemClick(AdapterView<?> parent, final View view,
               int position, long id) {
             final String item = (String) parent.getItemAtPosition(position);
+            intent.putParcelableArrayListExtra("listRecords", listRecords);
             intent.putExtra("event", item);
             adapter.notifyDataSetChanged();
             startActivity(intent);
@@ -111,6 +121,7 @@ public class MainActivity extends Activity {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         
         fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
+        takePictureIntent.putParcelableArrayListExtra("listRecords", listRecords);
         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
 
         // start the image capture Intent
@@ -162,14 +173,21 @@ public class MainActivity extends Activity {
     
     public void toData (View view){
     	Intent intent = new Intent(this, DataActivity.class);
+    	intent.putParcelableArrayListExtra("listRecords", listRecords);
     	startActivity(intent);
     }
     
     public void toEvents (View view){
     	Intent intent = new Intent(this, MainActivity.class);
+    	intent.putParcelableArrayListExtra("listRecords", listRecords);
     	startActivity(intent);
     }
-   
+    
+    public void toMore (View view){
+    	Intent intent = new Intent(this, MoreActivity.class);
+    	intent.putParcelableArrayListExtra("listRecords", listRecords);
+    	startActivity(intent);
+    }
 
     /** Create a file Uri for saving an image or video */
     public static Uri getOutputMediaFileUri(int type){
