@@ -83,7 +83,7 @@ public class MoreActivity extends Activity {
 	
 	public void displayRecords(View view){
 		for (Record r : listRecords){
-			Log.d(TAG,r.getCommonName());
+			Log.d(TAG,r.getImagePath());
 		}
 	}
 	

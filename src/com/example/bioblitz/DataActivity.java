@@ -36,7 +36,6 @@ public class DataActivity extends FragmentActivity {
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
     public static ArrayList<Record> listRecords;
-    String[] values;
     final ArrayList<String> list = new ArrayList<String>();
 
 	@Override
@@ -48,50 +47,43 @@ public class DataActivity extends FragmentActivity {
 		final Intent intent = new Intent(this, SpeciesEntryActivity.class);
 
 		Bundle data = getIntent().getExtras();
-		
-		if (data == null){
+        if (data == null){
         	listRecords = new ArrayList<Record>();
-        	values = new String[]{"None are available"};
+        	
         }
 		else{
 			listRecords = data.getParcelableArrayList("listRecords");
 			
-			Record record = (Record) data.getParcelable("record");
-			if (record != null){
-	        	listRecords.add(record);
-	        	values = new String[]{record.getCommonName()};
-	        }
+			for (Record r : listRecords){
+				list.add(r.getCommonName());
+			}
+			final StableArrayAdapter adapter = new StableArrayAdapter(this,
+		            android.R.layout.simple_list_item_1, list);
+		        listView.setAdapter(adapter);
+		        
+		        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		        	Record selected;
+		          @Override
+		          public void onItemClick(AdapterView<?> parent, final View view,
+		              int position, long id) {
+		            final String item = (String) parent.getItemAtPosition(position);
+		            
+		            
+		            for (Record r : listRecords){
+		            	if (r.getCommonName() == item){
+		            		selected = r;
+		            	}
+		            }
+		            
+		            intent.putExtra("species", selected);
+		            intent.putParcelableArrayListExtra("listRecords", listRecords);
+		            adapter.notifyDataSetChanged();
+		            startActivity(intent);
+		          }
+
+		        });     
+
 		}
-
-        for (int i = 0; i < values.length; ++i) {
-          list.add(values[i]);
-        }
-        
-        final StableArrayAdapter adapter = new StableArrayAdapter(this,
-            android.R.layout.simple_list_item_1, list);
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-        	Record selected;
-          @Override
-          public void onItemClick(AdapterView<?> parent, final View view,
-              int position, long id) {
-            final String item = (String) parent.getItemAtPosition(position);
-            
-            
-            for (Record r : listRecords){
-            	if (r.getCommonName() == item){
-            		selected = r;
-            	}
-            }
-            
-            intent.putExtra("species", selected);
-            intent.putParcelableArrayListExtra("listRecords", listRecords);
-            adapter.notifyDataSetChanged();
-            startActivity(intent);
-          }
-
-        });
 	
 	}
 
@@ -135,6 +127,14 @@ public class DataActivity extends FragmentActivity {
 	}
 	
 	public void dispatchTakePictureIntent(View view) {
+		Bundle test = getIntent().getExtras();
+        if (test == null){
+        	listRecords = new ArrayList<Record>();
+        }
+		else{
+			listRecords = test.getParcelableArrayList("listRecords");
+			Log.d(TAG, "HELLLO221323 " + listRecords.toString());
+		}
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         
         fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
@@ -147,9 +147,10 @@ public class DataActivity extends FragmentActivity {
     
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	
     	ArrayList<String> f = new ArrayList<String>();// list of file paths
     	File[] listFile;
-    	//Log.d(TAG, String.valueOf(requestCode));
+    	Log.d(TAG, "HELLLO " + String.valueOf(requestCode));
     	if (requestCode == REQUEST_IMAGE_CAPTURE) {
             if (resultCode == RESULT_OK) {
                 // Image captured and saved to fileUri specified in the Intent
@@ -200,22 +201,20 @@ public class DataActivity extends FragmentActivity {
     
     public void toData (View view){
     	Intent intent = new Intent(this, DataActivity.class);
+    	intent.putParcelableArrayListExtra("listRecords", listRecords);
     	startActivity(intent);
     }
     
     public void toEvents (View view){
     	Intent intent = new Intent(this, MainActivity.class);
+    	intent.putParcelableArrayListExtra("listRecords", listRecords);
     	startActivity(intent);
     }
     
     public void toMore (View view){
     	Intent intent = new Intent(this, MoreActivity.class);
+    	intent.putParcelableArrayListExtra("listRecords", listRecords);
     	startActivity(intent);
-    }
-    
-    public void startSomething(View View) {
-        DialogFragment newFragment = new newEntryPopUp ();
-        newFragment.show(getSupportFragmentManager(), "missiles");
     }
     
     public void listRecords (View view){
@@ -224,9 +223,15 @@ public class DataActivity extends FragmentActivity {
         }
     	System.out.println(listRecords.toString());
     }
-   
+    
+    public void startSomething(View View) {
+        DialogFragment newFragment = new newEntryPopUp ();
+        newFragment.show(getSupportFragmentManager(), "missiles");
+    }
     
     public static class newEntryPopUp extends DialogFragment {
+ 
+    	
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the Builder class for convenient dialog construction
@@ -237,12 +242,13 @@ public class DataActivity extends FragmentActivity {
 			               // The 'which' argument contains the index position
 			               // of the selected item
 			            	   if(which==0){
+
+			            		   Log.d(TAG, "Value of list: " + listRecords.toString());
 			            		   Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 			            	        
 			            	        fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
-			            	        takePictureIntent.putParcelableArrayListExtra("listRecords", listRecords);
+			            	        //takePictureIntent.putParcelableArrayListExtra("listRecords", listRecords);
 			            	        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
-
 			            	        // start the image capture Intent
 			            	        getActivity().startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
 			            		   
@@ -251,7 +257,10 @@ public class DataActivity extends FragmentActivity {
 			            		   Log.d(TAG, "From Gallery");
 			            	   }
 			            	   else{
+
+			            		   
 			            		   Intent intent = new Intent(((Dialog) dialog).getContext(), NewEntryActivity.class);
+			            		   intent.putParcelableArrayListExtra("listRecords", listRecords);
 			            	    	startActivity(intent);
 			            	   }
 			           }
